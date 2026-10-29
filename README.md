@@ -47,6 +47,7 @@ Check out the pull request head SHA, not the default merge ref, so comment line 
 - Fork pull requests receive no secrets, so the example workflow skips them. Do not switch to `pull_request_target`, which hands secrets to a run that reads untrusted code.
 - The review comments but does not approve or request changes.
 - Each push reviews the new head and posts a new set of comments. Earlier comments are not updated.
+- The review fails when the checkout is not the pull request's current head, for example on a rerun of an older push. This keeps the diff and the source files the lenses read on one revision.
 
 ## How it works
 
