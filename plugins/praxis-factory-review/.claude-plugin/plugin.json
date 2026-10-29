@@ -1,0 +1,11 @@
+{
+  "name": "praxis-factory-review",
+  "version": "0.1.0",
+  "description": "Multi-lens pull request review with read-only lens subagents and one verifying orchestrator.",
+  "author": {
+    "name": "Praxis Forward",
+    "url": "https://praxisforward.ai"
+  },
+  "homepage": "https://github.com/PraxisForward/praxis-factory-review",
+  "repository": "https://github.com/PraxisForward/praxis-factory-review"
+}
