@@ -1,0 +1,60 @@
+name: Praxis Factory Review
+description: Multi-lens pull request review. Read-only lens subagents report, one orchestrator verifies and posts Conventional Comments.
+author: Praxis Forward
+branding:
+  icon: check-circle
+  color: blue
+
+inputs:
+  github_token:
+    description: Token used to read the pull request and post comments. Needs pull-requests write.
+    required: false
+    default: ${{ github.token }}
+  anthropic_api_key:
+    description: Anthropic API key. Provide this, claude_code_oauth_token, or a cloud provider.
+    required: false
+  claude_code_oauth_token:
+    description: Claude Code OAuth token.
+    required: false
+  use_bedrock:
+    description: Use Amazon Bedrock with OIDC instead of the Anthropic API.
+    required: false
+    default: "false"
+  use_vertex:
+    description: Use Google Vertex AI with OIDC instead of the Anthropic API.
+    required: false
+    default: "false"
+  claude_args:
+    description: Extra Claude Code CLI arguments, appended after the review's own arguments.
+    required: false
+    default: ""
+
+runs:
+  using: composite
+  steps:
+    - id: prepare
+      shell: bash
+      env:
+        GH_TOKEN: ${{ inputs.github_token }}
+        PR_NUMBER: ${{ github.event.pull_request.number }}
+      run: |
+        if [[ -z "$PR_NUMBER" ]]; then
+          echo "::error::Praxis Factory Review runs on pull_request events only."
+          exit 1
+        fi
+        "$GITHUB_ACTION_PATH/plugins/praxis-factory-review/scripts/prepare-review.sh" "$PR_NUMBER" "$GITHUB_REPOSITORY"
+        echo "marketplace=$GITHUB_ACTION_PATH" >> "$GITHUB_OUTPUT"
+
+    - uses: anthropics/claude-code-action@d70510b174a1244958df0b03166a54912811f3e6 # v1.0.264
+      with:
+        github_token: ${{ inputs.github_token }}
+        anthropic_api_key: ${{ inputs.anthropic_api_key }}
+        claude_code_oauth_token: ${{ inputs.claude_code_oauth_token }}
+        use_bedrock: ${{ inputs.use_bedrock }}
+        use_vertex: ${{ inputs.use_vertex }}
+        plugin_marketplaces: ${{ steps.prepare.outputs.marketplace }}
+        plugins: praxis-factory-review@praxis-factory-review
+        prompt: /praxis-factory-review:review-pr-ci ${{ github.repository }} ${{ github.event.pull_request.number }}
+        claude_args: >-
+          --allowedTools "Agent,Skill,Read,Grep,Glob,Bash(gh pr view:*),Bash(gh pr diff:*),Bash(gh pr comment:*),mcp__github_inline_comment__create_inline_comment"
+          ${{ inputs.claude_args }}

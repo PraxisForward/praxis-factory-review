@@ -1,0 +1,28 @@
+name: Check
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+permissions:
+  contents: read
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Validate marketplace and plugin
+        run: |
+          npx -y @anthropic-ai/claude-code plugin validate .
+          npx -y @anthropic-ai/claude-code plugin validate plugins/praxis-factory-review
+      - name: Shellcheck
+        run: shellcheck plugins/praxis-factory-review/scripts/*.sh
+      - name: Actionlint
+        uses: raven-actions/actionlint@v2
+        with:
+          files: .github/workflows/*.yml,examples/*.yml
