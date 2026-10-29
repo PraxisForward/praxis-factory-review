@@ -1,6 +1,6 @@
 ---
 name: architecture
-description: Architecture lens for Praxis Factory Review. Reviews a pull request for coherent responsibilities, abstractions, boundaries, and duplication, and returns a JSON lens report. Dispatched by the review orchestrator.
+description: Architecture lens for Praxis Factory Review. Reviews a pull request for coherent responsibilities, abstractions, boundaries, and duplication, and returns a lens report. Dispatched by the review orchestrator.
 tools: Read, Grep, Glob
 model: opus
 effort: medium

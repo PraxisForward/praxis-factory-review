@@ -2,7 +2,7 @@
 
 Praxis Factory Review is a multi-lens pull request review that runs in your own GitHub Actions. It ships as a Claude Code plugin and a composite action. Six lenses (architecture, readability, testing, maintainability, security, documentation) each run as a read-only subagent. One orchestrator verifies their findings, drops what it cannot defend, and posts the rest as [Conventional Comments](https://conventionalcomments.org/).
 
-Built by [Praxis Forward](https://praxisforward.ai).
+Built by [Praxis Forward](https://www.praxisforward.ai).
 
 ## Set up the action
 
@@ -54,8 +54,8 @@ The action pins the plugin to its own version. When a workflow uses `PraxisForwa
 
 1. A prepare step writes the pull request metadata and diff to `.praxis-review/` in the checkout.
 2. `claude-code-action` runs the `review-pr-ci` skill. It never asks questions and never waits for approval.
-3. The skill dispatches the six lens subagents at once. Each lens has only `Read`, `Grep`, and `Glob`, so it cannot post, edit, or run commands. Each returns a JSON report in the shape the `review-contract` skill defines.
-4. The orchestrator rejects any missing or malformed lens report and names that lens in the summary. It verifies every candidate finding against the code, dedupes across lenses, and cuts findings an author would not act on.
+3. The skill dispatches the six lens subagents at once. Each lens has only `Read`, `Grep`, and `Glob`, so it cannot post, edit, or run commands. Each returns a structured report in the shape the `review-contract` skill defines.
+4. The orchestrator names any lens that returned no report or an incomplete one in the summary. It verifies every candidate finding against the code, dedupes across lenses, and cuts findings an author would not act on.
 5. It posts each surviving finding as an inline comment and finishes with one summary comment.
 
 ```
@@ -89,4 +89,4 @@ A dry run prints the comments it would post and posts nothing.
 
 ## Tuning and rollout
 
-Praxis Forward tunes the lenses to a team's codebase and rolls the review out across an organization. Get in touch at [praxisforward.ai](https://praxisforward.ai).
+Praxis Forward tunes the lenses to a team's codebase and rolls the review out across an organization. Get in touch at [praxisforward.ai](https://www.praxisforward.ai).

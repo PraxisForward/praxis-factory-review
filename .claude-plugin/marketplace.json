@@ -3,7 +3,7 @@
   "description": "Praxis Factory Review: multi-lens pull request review for Claude Code and GitHub Actions.",
   "owner": {
     "name": "Praxis Forward",
-    "url": "https://praxisforward.ai"
+    "url": "https://www.praxisforward.ai"
   },
   "plugins": [
     {

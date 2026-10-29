@@ -1,6 +1,6 @@
 ---
 name: documentation
-description: Documentation lens for Praxis Factory Review. Reviews a pull request for accurate documentation of public interfaces, configuration, migrations, and operational changes, and returns a JSON lens report. Dispatched by the review orchestrator.
+description: Documentation lens for Praxis Factory Review. Reviews a pull request for accurate documentation of public interfaces, configuration, migrations, and operational changes, and returns a lens report. Dispatched by the review orchestrator.
 tools: Read, Grep, Glob
 model: sonnet
 effort: low

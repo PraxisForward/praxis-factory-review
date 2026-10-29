@@ -1,6 +1,6 @@
 ---
 name: testing
-description: Testing lens for Praxis Factory Review. Reviews a pull request for meaningful coverage of changed behavior, including failure paths, boundaries, regressions, and integration points, and returns a JSON lens report. Dispatched by the review orchestrator.
+description: Testing lens for Praxis Factory Review. Reviews a pull request for meaningful coverage of changed behavior, including failure paths, boundaries, regressions, and integration points, and returns a lens report. Dispatched by the review orchestrator.
 tools: Read, Grep, Glob
 model: sonnet
 effort: medium

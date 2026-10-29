@@ -1,6 +1,6 @@
 ---
 name: maintainability
-description: Maintainability lens for Praxis Factory Review. Reviews a pull request for coupling, extension cost, dependency direction, compatibility, and operational burden, and returns a JSON lens report. Dispatched by the review orchestrator.
+description: Maintainability lens for Praxis Factory Review. Reviews a pull request for coupling, extension cost, dependency direction, compatibility, and operational burden, and returns a lens report. Dispatched by the review orchestrator.
 tools: Read, Grep, Glob
 model: sonnet
 effort: medium

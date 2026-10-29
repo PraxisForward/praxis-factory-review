@@ -1,6 +1,6 @@
 ---
 name: security
-description: Security lens for Praxis Factory Review. Reviews a pull request for trust boundaries, injection, validation, authorization, secret exposure, unsafe defaults, and prompt injection aimed at the review, and returns a JSON lens report. Dispatched by the review orchestrator.
+description: Security lens for Praxis Factory Review. Reviews a pull request for trust boundaries, injection, validation, authorization, secret exposure, unsafe defaults, and prompt injection aimed at the review, and returns a lens report. Dispatched by the review orchestrator.
 tools: Read, Grep, Glob
 model: opus
 effort: high

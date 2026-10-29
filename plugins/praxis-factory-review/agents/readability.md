@@ -1,6 +1,6 @@
 ---
 name: readability
-description: Readability lens for Praxis Factory Review. Reviews a pull request for naming, control flow, local complexity, consistency, and recoverable intent, and returns a JSON lens report. Dispatched by the review orchestrator.
+description: Readability lens for Praxis Factory Review. Reviews a pull request for naming, control flow, local complexity, consistency, and recoverable intent, and returns a lens report. Dispatched by the review orchestrator.
 tools: Read, Grep, Glob
 model: sonnet
 effort: medium

@@ -1,6 +1,6 @@
 ---
 name: review-contract
-description: Shared contract for Praxis Factory Review lens subagents. Defines the review inputs, the reachability test, the omission rules, and the JSON report every lens returns. Preloaded into each lens; not for direct use.
+description: Shared contract for Praxis Factory Review lens subagents. Defines the review inputs, the reachability test, the omission rules, and the report every lens returns. Preloaded into each lens; not for direct use.
 user-invocable: false
 ---
 
@@ -42,28 +42,24 @@ Omit praise, style preferences without impact, speculative concerns, defensive h
 
 ## Report format
 
-Your entire final response is one JSON object and nothing else. No prose before or after it, and no Markdown code fence.
+Your final response is the report and nothing else. Write it in this shape, with one section per finding:
 
 ```
-{
-  "schema": "praxis-factory-review/lens-report@1",
-  "lens": "<your lens key>",
-  "findings": [
-    {
-      "severity": "critical" | "high" | "medium" | "low",
-      "likelihood": "high" | "medium" | "low",
-      "confidence": "high" | "medium" | "low",
-      "file": "repository-relative path as it appears in the diff",
-      "startLine": 1,
-      "endLine": 1,
-      "failureMode": "the concrete failure mode or maintenance cost",
-      "triggerConditions": "the conditions that trigger it, with evidence a real caller, input, configuration, or schedule produces them",
-      "evidence": "what in the diff and surrounding code supports the finding",
-      "reasoningPath": "the reasoning that validates the claim, grounded in the cited code",
-      "remediation": "a concise remediation direction"
-    }
-  ]
-}
+## <lens key> lens report
+
+### <short title>
+
+- Location: <repository-relative path>:<startLine>-<endLine>
+- Severity: critical | high | medium | low
+- Likelihood: high | medium | low
+- Confidence: high | medium | low
+- Failure mode: <the concrete failure mode or maintenance cost>
+- Trigger: <the conditions that trigger it, with evidence a real caller, input, configuration, or schedule produces them>
+- Evidence: <what in the diff and surrounding code supports the finding>
+- Reasoning: <the reasoning that validates the claim, grounded in the cited code>
+- Remediation: <a concise remediation direction>
+
+End of <lens key> lens report.
 ```
 
-`schema` is always the exact string `praxis-factory-review/lens-report@1`. `lens` is the key your lens brief names. `startLine` and `endLine` are 1-based line numbers in the head version. Keep the range tight. When nothing actionable remains, return the object with an empty `findings` array.
+Line numbers are 1-based and refer to the head version. Keep the range tight. When nothing actionable remains, write `No actionable findings.` in place of the finding sections. Always end with the closing line exactly as shown. It tells the orchestrator your report is complete.

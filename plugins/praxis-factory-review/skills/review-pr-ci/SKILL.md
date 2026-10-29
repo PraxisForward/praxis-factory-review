@@ -44,9 +44,9 @@ Give each lens the same prompt. It contains the repository, the pull request num
 
 ## 3. Check every lens report
 
-A lens report is valid only when the lens's entire final response parses as one JSON object, `schema` is exactly `praxis-factory-review/lens-report@1`, `lens` matches the lens you dispatched, and every finding has all the fields the lens contract requires with in-range values.
+A lens report is complete when it ends with the line `End of <lens key> lens report.` for the lens you dispatched. A lens that returned nothing, stopped at its turn limit, or has no closing line has failed. Do not re-dispatch it or skip it quietly. Continue with the other reports, and name each failed lens and why in the summary. If every lens failed, post only the summary and stop.
 
-A lens whose report is missing, partial, or invalid has failed. Do not re-dispatch it, repair its output, or skip it quietly. Continue with the valid reports, and name each failed lens and its failure in the summary. If every lens failed, post only the summary and stop.
+Judge a complete report by its findings, not its formatting. A finding that is missing a field or a precise location still goes to verification. Find the cited code yourself, and drop the finding only if you cannot.
 
 ## 4. Verify every candidate finding
 
@@ -100,7 +100,7 @@ Use `issue`, `question`, `suggestion`, `thought`, `nitpick`, or `chore`. A verif
 <failed lenses and why, if any>
 
 ---
-<sub>Reviewed by <a href="https://praxisforward.ai">Praxis Factory Review</a> · lenses: architecture, readability, testing, maintainability, security, documentation</sub>
+<sub>Reviewed by <a href="https://www.praxisforward.ai">Praxis Factory Review</a> · lenses: architecture, readability, testing, maintainability, security, documentation</sub>
 ```
 
 When no finding survives, the summary says the change looks sound and posts no inline comments.
